@@ -60,8 +60,6 @@
     vertical-align: center;
     background-image: url("../assets/images/delete.png");
     float: left;
-  }
-  button {
     height: 50px;
     width: 50px;
     border-radius: 50%;
