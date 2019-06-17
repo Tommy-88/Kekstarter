@@ -16,11 +16,6 @@ export default new Router({
       path: '/',
       name: 'All Fees',
       component: AllFeesComponent
-    },
-    {
-      path: '/item',
-      name: 'item',
-      component: ItemComponent
     }
   ]
 }

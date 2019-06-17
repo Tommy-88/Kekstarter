@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="name">Kekstarter</div>
+    <div class="name">Kekstarterer</div>
     <button class="logout" v-if="this.isAuthorized" v-on:click="logout">Выход</button>
     <div class="settings" v-if="this.isAuthorized">Настройки</div>
     <div class="myFees" v-if="this.isAuthorized">Мои сборы</div>
