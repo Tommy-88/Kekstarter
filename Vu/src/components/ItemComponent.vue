@@ -1,6 +1,6 @@
 <template>
   <div class="list-item">
-    <button id="delete" v-on:click="this.collected = 0"></button>
+    <button id="delete" v-on:click="clearAll"></button>
     <div class="msg">{{ this.message }}</div>
     <div class="collected"  v-on:click="addOne">{{this.collected}} / {{this.needed}}</div>
     <circle-progress :fill="{color: '#008B8B'}" :insert-mode="append" :progress="progressRate"
@@ -10,25 +10,29 @@
 </template>
 
 <script>
-  export default {
-    name: 'ItemComponent',
-    props: {
-      message: String,
-      collected: Number,
-      needed: Number
+export default {
+  name: 'ItemComponent',
+  props: {
+    message: String,
+    collected: Number,
+    needed: Number
+  },
+  computed: {
+    progressRate: function () {
+      return this.collected / this.needed * 100
+    }
+  },
+  methods: {
+    addOne: function () {
+      this.collected++
+      this.$refs.unique.updateProgress(this.collected / this.needed * 100)
     },
-    computed: {
-      progressRate: function () {
-        return this.collected / this.needed * 100
-      }
-    },
-    methods: {
-      addOne: function () {
-        this.collected++
-        this.$refs.unique.updateProgress(this.collected / this.needed * 100)
-      }
+    clearAll: function () {
+      this.collected = 0
+      this.$refs.unique.updateProgress(0)
     }
   }
+}
 </script>
 
 <style scoped>

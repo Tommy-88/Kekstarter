@@ -10,20 +10,20 @@
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-    props: {
-      isAuthorized: Boolean
+export default {
+  name: 'Header',
+  props: {
+    isAuthorized: Boolean
+  },
+  methods: {
+    logout: function () {
+      this.isAuthorized = false
     },
-    methods: {
-      logout: function () {
-        this.isAuthorized = false
-      },
-      login: function () {
-        this.isAuthorized = true
-      }
+    login: function () {
+      this.isAuthorized = true
     }
   }
+}
 </script>
 
 <style scoped>

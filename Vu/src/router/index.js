@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import AllFeesComponent from '@/components/AllFeesComponent'
 import CircleProgress from 'vue2-circle-progress'
 import ItemComponent from '@/components/ItemComponent'
 import HeaderComponent from '@/components/HeaderComponent'
@@ -14,8 +14,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'All Fees',
+      component: AllFeesComponent
+    },
+    {
+      path: '/item',
+      name: 'item',
+      component: ItemComponent
     }
   ]
-})
+}
+)
