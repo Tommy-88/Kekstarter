@@ -1,9 +1,11 @@
 <template>
   <div class="list-item">
     <button id="delete" v-on:click="clearAll"></button>
-    <div class="msg">{{ this.message }}</div>
+    <div class="msg">
+      <p> {{ this.message }}</p>
+      </div>
     <div class="collected"  v-on:click="addOne">{{this.collected}} / {{this.needed}}</div>
-    <circle-progress :fill="{color: '#008B8B'}" :insert-mode="append" :progress="progressRate"
+    <circle-progress :fill="{color: '#008B8B'}" :progress="progressRate"
                      :size="100" :start-angle="-Math.PI/2" :show-percent="false" ref="unique">
     </circle-progress>
   </div>
@@ -15,7 +17,8 @@ export default {
   props: {
     message: String,
     collected: Number,
-    needed: Number
+    needed: Number,
+    feeID: Number
   },
   computed: {
     progressRate: function () {
@@ -28,8 +31,7 @@ export default {
       this.$refs.unique.updateProgress(this.collected / this.needed * 100)
     },
     clearAll: function () {
-      this.collected = 0
-      this.$refs.unique.updateProgress(0)
+      this.$router.push({name: 'fee'})
     }
   }
 }

@@ -1,11 +1,11 @@
 <template>
   <header>
-    <div class="name">Kekstarterer</div>
-    <button class="logout" v-if="this.isAuthorized" v-on:click="logout">Выход</button>
-    <div class="settings" v-if="this.isAuthorized">Настройки</div>
-    <div class="myFees" v-if="this.isAuthorized">Мои сборы</div>
-    <button class="register" v-if="!this.isAuthorized">Регистрация</button>
-    <button class="login" v-if="!this.isAuthorized" v-on:click="login">Вход</button>
+    <div class="name" v-on:click="toHome">Kekstarterer</div>
+    <button class="logout" v-if="authorized" v-on:click="logout">Выход</button>
+    <div class="settings" v-if="authorized">Настройки</div>
+    <div class="myFees" v-if="authorized" v-on:click="toFees">Мои сборы</div>
+    <button class="register" v-if="!authorized">Регистрация</button>
+    <button class="login" v-if="!authorized" v-on:click="login">Вход</button>
   </header>
 </template>
 
@@ -13,15 +13,42 @@
 export default {
   name: 'Header',
   props: {
-    isAuthorized: Boolean
+  },
+  data () {
+    return {
+      authorized: false
+    }
   },
   methods: {
     logout: function () {
-      this.isAuthorized = false
+      localStorage.clear()
+      this.$router.push('/')
     },
     login: function () {
-      this.isAuthorized = true
+      this.$router.push('/auth')
+    },
+    toHome: function () {
+      this.$router.push({name: 'home'})
+    },
+    toFees: function () {
+      var user = JSON.parse(localStorage.getItem('loggedUser'))
+      const userid = user.userid
+      this.$router.push({name: 'allFees', params: {userid: userid}})
+    },
+    getAuthorized: function () {
+      if (localStorage.getItem('loggedUser')) {
+        this.authorized = JSON.parse(localStorage.getItem('loggedUser')).isLogged
+      }
+      else {
+        this.authorized = false
+      }
     }
+  },
+  mounted() {
+    this.$router.afterEach((to, from, next) => {
+      this.getAuthorized()
+    })
+    this.getAuthorized()
   }
 }
 </script>
@@ -59,7 +86,6 @@ export default {
     vertical-align: center;
     font-size: 28px;
     font-family: cursive;
-    cursor: default;
   }
   .logout {
     border: solid red 2px;

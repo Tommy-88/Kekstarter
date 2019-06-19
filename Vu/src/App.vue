@@ -1,14 +1,14 @@
 <template>
   <div id="app">
+    <header-component></header-component>
+
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/AllFeesComponent'
 export default {
-  name: 'App',
-  components: {HelloWorld}
+  name: 'App'
 }
 </script>
 

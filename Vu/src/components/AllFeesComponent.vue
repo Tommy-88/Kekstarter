@@ -1,15 +1,15 @@
 <template>
   <main>
-    <header-component :isAuthorized="true"></header-component>
     <form v-on:submit="addNew">
       <button id="add"></button>
       <input v-model="message" placeholder="message">
-      <input v-model="needed" placeholder="How much to collect?">
+      <input v-model="needed" type="number" placeholder="How much to collect?">
     </form>
     <ul id="example-1">
-      <h2>Мои сборы</h2>
+      <h2>Мои сборы({{this.user}})</h2>
       <li v-for="item in items" :key="item.id">
-        <item-component :message="item.message" :collected="item.collected" :needed="item.needed"></item-component></li>
+        <item-component :message="item.message" :collected="item.collected" :needed="item.needed" :feeID="item.id"></item-component>
+      </li>
     </ul>
   </main>
 </template>
@@ -19,11 +19,9 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      items: [
-        {message: 'That is a collection 1', collected: 80.2, needed: 100},
-        {message: 'Bar', collected: 12492.21, needed: 50000},
-        {message: 'That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3 That is a collection 3', collected: 87123.62, needed: 200000}
-      ]
+      items: [],
+      currentId: 2,
+      user: String
     }
   },
   methods: {
@@ -33,9 +31,18 @@ export default {
         collected: 0,
         needed: this.needed
       })
+      const parsed = JSON.stringify(this.items)
+      localStorage.setItem('items', parsed)
       this.message = ''
       this.needed = ''
     }
+  },
+  mounted() {
+    if (localStorage.getItem('items')) {
+      this.items = JSON.parse(localStorage.getItem('items'))
+      console.log('ya ebobo')
+    }
+    this.user = JSON.parse(localStorage.getItem('loggedUser')).userid
   }
 }
 </script>
