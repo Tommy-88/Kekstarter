@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form>
+    <form @submit.prevent="authUser(login, password)">
       <v-layout align-center column fill-height>
         <h2>Вход</h2>
         <v-text-field
@@ -16,7 +16,7 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         ></v-text-field>
-        <v-btn v-on:click="authUser(login, password)" color="blue" dark>Login</v-btn>
+        <v-btn type="submit" color="blue" dark>Login</v-btn>
       </v-layout>
     </form>
   </main>
@@ -45,7 +45,7 @@ export default {
         this.$router.push({name: 'allFees', params: {userid: login}})
       }
       else {
-        alert('Error')
+        alert('Invalid login or password')
       }
     }
   }

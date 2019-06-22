@@ -10,11 +10,14 @@ import Header from '@/components/Header'
 import Registration from '@/components/Registration'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
 Vue.component('app-header', Header)
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'md'
+})
 Vue.use(Router)
 
 export default new Router({

@@ -1,7 +1,9 @@
 <template>
   <main>
     <form v-on:submit="addNew">
-      <button id="add"></button>
+      <v-btn fab dark color="green" id="add" v-on:click="addNew">
+        <v-icon dark class="material-icons">add</v-icon>
+      </v-btn>
       <input v-model="message" placeholder="message">
       <input v-model="needed" type="number" placeholder="How much to collect?">
     </form>
@@ -85,7 +87,6 @@ export default {
     margin: 10px 0;
   }
   #add {
-    background-image: url("../assets/images/add.png");
     margin-left: 25px;
     margin-right: 20px;
     margin-bottom: 10px;
