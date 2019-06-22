@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <navbar v-if="this.authorized"></navbar>
     <v-content>
       <v-container fluid class="noMargin">
         <app-header></app-header>
@@ -30,12 +29,6 @@ export default {
         this.authorized = false
       }
     }
-  },
-  mounted() {
-    this.$router.afterEach((to, from, next) => {
-      this.getAuthorized()
-    })
-    this.getAuthorized()
   }
 }
 </script>

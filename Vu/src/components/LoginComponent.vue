@@ -5,15 +5,11 @@
         <h2>Вход</h2>
         <v-text-field
           v-model="login"
-          :rules="loginRules"
           label="Login"
           required
-          @input="$v.login.$touch()"
-          @blur="$v.login.$touch()"
         ></v-text-field>
         <v-text-field
           v-model="password"
-          :rules="passwordRules"
           label="Password"
           type="password"
           required
@@ -60,28 +56,5 @@ export default {
   h2 {
     color: darkcyan;
     margin-top: 20px;
-  }
-  input {
-    border: solid grey 2px;
-    height: 50px;
-    border-radius: 20px;
-    width: 250px;
-    margin: 20px auto;
-    display: block;
-    font-size: 25px;
-    padding-left: 15px;
-  }
-  button {
-    border: solid white 2px;
-    background-color: dodgerblue;
-    font-style: italic;
-    font-size: medium;
-    height: 45px;
-    width: 140px;
-    padding: 10px;
-    margin: 20px;
-    border-radius: 10px;
-    color: white;
-    cursor: pointer;
   }
 </style>

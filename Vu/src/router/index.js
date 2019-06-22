@@ -7,6 +7,7 @@ import NavBar from '@/components/NavBar'
 import Home from '@/components/HomeComponent'
 import Login from '@/components/LoginComponent'
 import Header from '@/components/Header'
+import Registration from '@/components/Registration'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
@@ -37,6 +38,11 @@ export default new Router({
       path: '/auth',
       name: 'auth',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Registration
     }
   ]
 }
