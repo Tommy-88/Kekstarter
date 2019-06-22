@@ -1,18 +1,49 @@
 <template>
-  <div id="app">
-    <header-component></header-component>
-
-    <router-view></router-view>
-  </div>
+  <v-app id="app">
+    <navbar v-if="this.authorized"></navbar>
+    <v-content>
+      <v-container fluid class="noMargin">
+        <app-header></app-header>
+        <router-view></router-view>
+      </v-container>
+    </v-content>
+    <v-footer dark></v-footer>
+  </v-app>
 </template>
 
 <script>
+import Header from './components/Header'
 export default {
-  name: 'App'
+  name: 'App',
+  components: {Header},
+  data () {
+    return {
+      authorized: false
+    }
+  },
+  methods: {
+    getAuthorized: function () {
+      if (localStorage.getItem('loggedUser')) {
+        this.authorized = JSON.parse(localStorage.getItem('loggedUser')).isLogged
+      }
+      else {
+        this.authorized = false
+      }
+    }
+  },
+  mounted() {
+    this.$router.afterEach((to, from, next) => {
+      this.getAuthorized()
+    })
+    this.getAuthorized()
+  }
 }
 </script>
 
 <style>
+  .noMargin {
+    padding: 0;
+  }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1,10 +1,27 @@
 <template>
   <main>
-    <h2>Вход</h2>
-    <form  v-on:submit="authUser(login, password)">
-      <input v-model="login" placeholder="Login">
-      <input v-model="password" type="password" placeholder="Password">
-      <button>Войти</button>
+    <form>
+      <v-layout align-center column fill-height>
+        <h2>Вход</h2>
+        <v-text-field
+          v-model="login"
+          :rules="loginRules"
+          label="Login"
+          required
+          @input="$v.login.$touch()"
+          @blur="$v.login.$touch()"
+        ></v-text-field>
+        <v-text-field
+          v-model="password"
+          :rules="passwordRules"
+          label="Password"
+          type="password"
+          required
+          @input="$v.password.$touch()"
+          @blur="$v.password.$touch()"
+        ></v-text-field>
+        <v-btn v-on:click="authUser(login, password)" color="blue" dark>Login</v-btn>
+      </v-layout>
     </form>
   </main>
 </template>
@@ -13,6 +30,17 @@
 export default {
   name: 'LoginComponent',
   methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+      }
+    },
+    reset () {
+      this.$refs.form.reset()
+    },
+    resetValidation () {
+      this.$refs.form.resetValidation()
+    },
     authUser: function (login, password) {
       if (login === 'admin' && password === 'admin') {
         var loggedUser = {userid: login, isLogged: true}
@@ -31,6 +59,7 @@ export default {
 <style scoped>
   h2 {
     color: darkcyan;
+    margin-top: 20px;
   }
   input {
     border: solid grey 2px;
@@ -40,6 +69,7 @@ export default {
     margin: 20px auto;
     display: block;
     font-size: 25px;
+    padding-left: 15px;
   }
   button {
     border: solid white 2px;

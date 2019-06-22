@@ -5,12 +5,18 @@
       <input v-model="message" placeholder="message">
       <input v-model="needed" type="number" placeholder="How much to collect?">
     </form>
-    <ul id="example-1">
-      <h2>Мои сборы({{this.user}})</h2>
-      <li v-for="item in items" :key="item.id">
-        <item-component :message="item.message" :collected="item.collected" :needed="item.needed" :feeID="item.id"></item-component>
-      </li>
-    </ul>
+    <v-list>
+      <v-subheader>Мои сборы</v-subheader>
+      <template v-for="item in items">
+        <v-divider></v-divider>
+        <v-list-tile v-on:click="toFee(item)">
+          <v-list-tile-content>
+            <v-list-tile-title v-html="item.message"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+      </template>
+    </v-list>
   </main>
 </template>
 
@@ -20,8 +26,8 @@ export default {
   data () {
     return {
       items: [],
-      currentId: 2,
-      user: String
+      user: String,
+      id: Number
     }
   },
   methods: {
@@ -29,18 +35,26 @@ export default {
       this.items.push({
         message: this.message,
         collected: 0,
-        needed: this.needed
+        needed: this.needed,
+        author: this.user,
+        id: ++this.id
       })
       const parsed = JSON.stringify(this.items)
       localStorage.setItem('items', parsed)
       this.message = ''
       this.needed = ''
+    },
+    toFee: function (item) {
+      this.$router.push({name: 'fee', params: {userid: item.author, id: item.id}})
     }
   },
-  mounted() {
+  mounted () {
     if (localStorage.getItem('items')) {
       this.items = JSON.parse(localStorage.getItem('items'))
-      console.log('ya ebobo')
+      this.id = this.items.length
+    }
+    else {
+      this.id = 0
     }
     this.user = JSON.parse(localStorage.getItem('loggedUser')).userid
   }

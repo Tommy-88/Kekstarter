@@ -1,24 +1,18 @@
 <template>
-  <div class="list-item">
-    <button id="delete" v-on:click="clearAll"></button>
-    <div class="msg">
-      <p> {{ this.message }}</p>
-      </div>
-    <div class="collected"  v-on:click="addOne">{{this.collected}} / {{this.needed}}</div>
-    <circle-progress :fill="{color: '#008B8B'}" :progress="progressRate"
-                     :size="100" :start-angle="-Math.PI/2" :show-percent="false" ref="unique">
-    </circle-progress>
-  </div>
+  <v-card>
+    <v-card-title primary-title>
+      <div class="headline">Author</div>
+    </v-card-title>
+  </v-card>
 </template>
 
 <script>
 export default {
   name: 'ItemComponent',
-  props: {
-    message: String,
-    collected: Number,
-    needed: Number,
-    feeID: Number
+  data () {
+    return {
+      item: JSON
+    }
   },
   computed: {
     progressRate: function () {
