@@ -11,6 +11,7 @@ import Registration from '@/components/Registration'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import CreateProjectComponent from "@/components/CreateProjectComponent";
 
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
@@ -21,32 +22,37 @@ Vue.use(Vuetify, {
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/user/:userid/fees',
-      name: 'allFees',
-      component: AllFeesComponent
-    },
-    {
-      path: '/user/:userid/fee/:id',
-      name: 'fee',
-      component: Fee
-    },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: Login
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: Registration
-    }
-  ]
-}
+    routes: [
+      {
+        path: '/',
+        name: 'home',
+        component: Home
+      },
+      {
+        path: '/user/:userid/fees',
+        name: 'allFees',
+        component: AllFeesComponent
+      },
+      {
+        path: '/user/:userid/fee/:id',
+        name: 'fee',
+        component: Fee
+      },
+      {
+        path: '/auth',
+        name: 'auth',
+        component: Login
+      },
+      {
+        path: '/register',
+        name: 'register',
+        component: Registration
+      },
+      {
+        path: '/user/:userid/create',
+        name: 'creating',
+        component: CreateProjectComponent
+      }
+    ]
+  }
 )

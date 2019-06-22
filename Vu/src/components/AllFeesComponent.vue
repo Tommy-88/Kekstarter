@@ -1,7 +1,7 @@
 <template>
   <main>
     <form v-on:submit="addNew">
-      <v-btn fab dark color="green" id="add" v-on:click="addNew">
+      <v-btn fab dark color="green" id="add" v-on:click="createNew">
         <v-icon dark class="material-icons">add</v-icon>
       </v-btn>
       <input v-model="message" placeholder="message">
@@ -45,6 +45,9 @@ export default {
       localStorage.setItem('items', parsed)
       this.message = ''
       this.needed = ''
+    },
+    createNew: function () {
+      this.$router.push("create")
     },
     toFee: function (item) {
       this.$router.push({name: 'fee', params: {userid: item.author, id: item.id}})
