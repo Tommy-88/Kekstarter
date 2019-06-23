@@ -1,14 +1,12 @@
 <template>
   <main>
-    <form>
-      <h2>Create a new project</h2>
-    </form>
     <form class="createPage">
         <v-flex xs6>
+          <h2>Открытие нового сбора</h2>
           <v-text-field
             v-model="title"
             :rules="titleRules"
-            label="Title"
+            label="Название"
             required
           ></v-text-field>
         </v-flex>
@@ -16,7 +14,7 @@
           <v-text-field
             v-model="targetAmount"
             type="number"
-            label="Amount"
+            label="Необходимая сумма"
             required
           ></v-text-field>
         </v-flex>
@@ -24,28 +22,28 @@
           <v-select
             v-model="currentTopic"
             :items="topics"
-            label="Select topic"
+            label="Тема"
           ></v-select>
         </v-flex>
         <v-flex xs6>
           <v-text-field
             v-model="telNumber"
             :rules="telNumRules"
-            label="Number"
+            label="Телефонный номер"
             required
           ></v-text-field>
         </v-flex>
         <v-flex xs6>
-          <v-textarea>
+          <v-textarea
             v-model="descr"
-            label="Description"
-            placeholder="Description"
+            label="Подробное описание"
+            >
           </v-textarea>
         </v-flex>
         <v-flex xs6>
           <v-btn color="blue"
-            v-on:click="createNewProject()"
-          >Create</v-btn>
+            v-on:click="createNewProject()" dark
+          >Открыть сбор</v-btn>
         </v-flex>
     </form>
   </main>
@@ -60,7 +58,7 @@ export default {
       v => !!v || 'Title is required',
       v => v.length < 100 || 'Title should be shorter than 100 symbols'
     ],
-    targetAmount: 100,
+    targetAmount: Number,
     telNumber: '',
     telNumRules: [
       v => !!v || 'Number is required',
@@ -84,10 +82,20 @@ export default {
         amount: this.targetAmount,
         topic: this.currentTopic,
         description: this.descr,
-        userid: localStorage.getItem('loggedUser')
+        author: JSON.parse(localStorage.getItem('loggedUser')).userid,
+        id: localStorage.getItem('currentId') ? localStorage.getItem('currentId') : 1
       }
-      alert('Title:' + newProject.title) // shows that project has created
-      localStorage.setItem('currentProject', newProject)
+      localStorage.setItem('currentId', newProject.id + 1)
+      let projectList = []
+      if (!localStorage.getItem('projects')) {
+        projectList = []
+      }
+      else {
+        projectList = JSON.parse(localStorage.getItem('projects'))
+      }
+      projectList.push(newProject)
+      localStorage.setItem('projects', JSON.stringify(projectList))
+      this.$router.push({name: 'allFees', params: {userid: this.$route.params.userid}})
     }
   }
 }

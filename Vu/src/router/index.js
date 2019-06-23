@@ -50,7 +50,7 @@ export default new Router({
     },
     {
       path: '/user/:userid/create',
-      name: 'creating',
+      name: 'create',
       component: CreateProjectComponent
     }
   ]

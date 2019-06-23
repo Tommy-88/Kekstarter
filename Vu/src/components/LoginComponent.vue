@@ -16,7 +16,7 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         ></v-text-field>
-        <v-btn type="submit" color="blue" dark>Login</v-btn>
+        <v-btn type="submit" color="blue" dark>Войти</v-btn>
       </v-layout>
     </form>
   </main>

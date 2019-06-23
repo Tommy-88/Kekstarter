@@ -50,5 +50,14 @@
     display: inline-block;
     width: 150px
   }
+  @media screen and (max-width: 800px) {
+    header {
+      height: 60px;
+    }
+    .name {
+      margin: 10px 40px;
+      font-size: 22px;
+    }
+  }
 
 </style>

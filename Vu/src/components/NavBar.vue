@@ -38,6 +38,7 @@
             <v-list-tile-title>{{item.title}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+          <v-divider></v-divider>
         </div>
         <div v-else>
           <v-list-tile
@@ -65,9 +66,10 @@ export default {
       drawer: true,
       items: [
         { title: 'Главная', icon: 'home', name: 'home', show: true },
-        { title: 'Мои сборы', icon: 'dashboard', name: 'allFees', show: true}
       ],
       logged: [
+        { title: 'Мои сборы', icon: 'dashboard', name: 'allFees', show: true},
+        { title: 'Новый сбор', name: 'create'},
         { title: 'Выход', icon: 'power_setting_new'}
       ],
       unlogged: [
