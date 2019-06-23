@@ -83,13 +83,8 @@ export default {
     descr: ''
   }),
   methods: {
-    validate () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
-    },
     createNewProject: function () {
-      if (!this.validate()) return
+      if (!this.$refs.form.validate()) return
       var newProject = {
         title: this.title,
         tel: this.telNumber,
