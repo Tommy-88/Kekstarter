@@ -1,25 +1,12 @@
 <template>
   <main>
-    <form v-on:submit="addNew">
-      <div class="row justify-content">
-      <div class="col-md-3 col-sm-2 col-lg-2 text-left">
-      <button id="add">Добавить</button>
-      </div>
-      <div class="col-md-3 col-sm-2 col-lg-4 text-left">
-      <input v-model="message" placeholder="message">
-      </div>
-      <div class="col-md-3 col-sm-2 col-lg-4 text-left">
-      <input v-model="needed" type="number" placeholder="How much to collect?">
-      </div>
-      </div>
-    </form>
     <v-list>
       <v-subheader>Мои сборы</v-subheader>
       <template v-for="item in items">
         <v-divider></v-divider>
         <v-list-tile v-on:click="toFee(item)">
           <v-list-tile-content>
-            <v-list-tile-title v-html="item.message"></v-list-tile-title>
+            <v-list-tile-title v-html="item.title"></v-list-tile-title>
             <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -39,26 +26,16 @@ export default {
     }
   },
   methods: {
-    addNew: function () {
-      this.items.push({
-        message: this.message,
-        collected: 0,
-        needed: this.needed,
-        author: this.user,
-        id: ++this.id
-      })
-      const parsed = JSON.stringify(this.items)
-      localStorage.setItem('items', parsed)
-      this.message = ''
-      this.needed = ''
+    createNew: function () {
+      this.$router.push('create') 
     },
     toFee: function (item) {
       this.$router.push({name: 'fee', params: {userid: item.author, id: item.id}})
     }
   },
   mounted () {
-    if (localStorage.getItem('items')) {
-      this.items = JSON.parse(localStorage.getItem('items'))
+    if (localStorage.getItem('projects')) {
+      this.items = JSON.parse(localStorage.getItem('projects'))
       this.id = this.items.length
     } else {
       this.id = 0

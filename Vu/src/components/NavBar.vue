@@ -38,6 +38,7 @@
             <v-list-tile-title>{{item.title}}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
+          <v-divider></v-divider>
         </div>
         <div v-else>
           <v-list-tile
@@ -64,15 +65,16 @@ export default {
       authorized: true,
       drawer: true,
       items: [
-        { title: 'Главная', icon: 'home', name: 'home', show: true },
-        { title: 'Мои сборы', icon: 'dashboard', name: 'allFees', show: true}
+        { title: 'Главная', icon: 'home', name: 'home', show: true }
       ],
       logged: [
-        { title: 'Выход', icon: 'power_setting_new'}
+        {title: 'Мои сборы', icon: 'dashboard', name: 'allFees', show: true},
+        {title: 'Новый сбор', name: 'create'},
+        {title: 'Выход', icon: 'power_setting_new'}
       ],
       unlogged: [
-        { title: 'Вход', name: 'auth'},
-        { title: 'Регистрация', name: 'register'}
+        {title: 'Вход', name: 'auth'},
+        {title: 'Регистрация', name: 'register'}
       ],
       right: null
     }
@@ -91,14 +93,15 @@ export default {
     moveTo: function (item) {
       if (item.title === 'Выход') {
         this.logout()
-      } else if (item.title === 'Вход')
+      } else if (item.title === 'Вход') {
         this.$router.push('/auth')
-      else if (item.title === 'Регистрация')
+      } else if (item.title === 'Регистрация') {
         this.$router.push('/register')
-      else if (item.title === 'Главная')
+      } else if (item.title === 'Главная') {
         this.$router.push('/')
-      else
+      } else {
         this.$router.push({name: item.name, params: {userid: JSON.parse(localStorage.getItem('loggedUser')).userid}})
+      }
     },
     getAuthorized: function () {
       if (localStorage.getItem('loggedUser')) {

@@ -2,6 +2,7 @@
   <main>
     <form>
       <div class="container-fluid">
+    <form @submit.prevent="authUser(login, password)">
       <v-layout align-center column fill-height>
       <div class="row justify-content-center">
       <div class="col-md-7 col-sm-7 col-lg-8 text-center">
@@ -29,6 +30,7 @@
         </div>
       </div>
       </v-layout>
+      </form>
       </div>
     </form>
   </main>
@@ -56,7 +58,7 @@ export default {
         localStorage.setItem('loggedUser', parsed)
         this.$router.push({name: 'allFees', params: {userid: login}})
       } else {
-        alert('Error')
+        alert('Invalid login or password')
       }
     }
   }

@@ -11,22 +11,22 @@
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-    props: {
-    },
-    data () {
-      return {
-        authorized: false,
-        isShown: false
-      }
-    },
-    methods: {
-      toHome: function () {
-        this.$router.push('/')
-      }
+export default {
+  name: 'Header',
+  props: {
+  },
+  data () {
+    return {
+      authorized: false,
+      isShown: false
+    }
+  },
+  methods: {
+    toHome: function () {
+      this.$router.push('/')
     }
   }
+}
 </script>
 
 <style scoped>
@@ -50,6 +50,15 @@
     cursor: pointer;
     font-style: italic;
     display: inline-block;
+  }
+  @media screen and (max-width: 800px) {
+    header {
+      height: 60px;
+    }
+    .name {
+      margin: 10px 40px;
+      font-size: 22px;
+    }
   }
 
 </style>

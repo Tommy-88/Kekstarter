@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AllFeesComponent from '@/components/AllFeesComponent'
-import CircleProgress from 'vue2-circle-progress'
+// import CircleProgress from 'vue2-circle-progress'
 import Fee from '@/components/Fee'
 import NavBar from '@/components/NavBar'
 import Home from '@/components/HomeComponent'
@@ -10,11 +10,15 @@ import Header from '@/components/Header'
 import Registration from '@/components/Registration'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import CreateProjectComponent from '@/components/CreateProjectComponent'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
 Vue.component('app-header', Header)
-Vue.use(Vuetify)
+Vue.use(Vuetify, {
+  iconfont: 'md'
+})
 Vue.use(Router)
 
 export default new Router({
@@ -43,6 +47,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Registration
+    },
+    {
+      path: '/user/:userid/create',
+      name: 'create',
+      component: CreateProjectComponent
     }
   ]
 }
