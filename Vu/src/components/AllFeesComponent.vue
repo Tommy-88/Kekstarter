@@ -48,6 +48,7 @@ export default {
     },
     createNew: function () {
       this.$router.push("create")
+      
     },
     toFee: function (item) {
       this.$router.push({name: 'fee', params: {userid: item.author, id: item.id}})
