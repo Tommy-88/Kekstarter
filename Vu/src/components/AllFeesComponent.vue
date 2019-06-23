@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form v-on:submit="addNew">
+    <form v-on:submit="createNew">
       <v-btn fab dark color="green" id="add" v-on:click="createNew">
         <v-icon dark class="material-icons">add</v-icon>
       </v-btn>
@@ -13,8 +13,8 @@
         <v-divider></v-divider>
         <v-list-tile v-on:click="toFee(item)">
           <v-list-tile-content>
-            <v-list-tile-title v-html="item.message"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="item.author"></v-list-tile-sub-title>
+            <v-list-tile-title v-html="item.title"></v-list-tile-title>
+            <v-list-tile-sub-title v-html="item.amount"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
       </template>
@@ -55,8 +55,8 @@ export default {
     }
   },
   mounted () {
-    if (localStorage.getItem('items')) {
-      this.items = JSON.parse(localStorage.getItem('items'))
+    if (localStorage.getItem('projects')) {
+      this.items = JSON.parse(localStorage.getItem('projects'))
       this.id = this.items.length
     }
     else {

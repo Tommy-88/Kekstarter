@@ -78,16 +78,23 @@ export default {
     },
     createNewProject: function () {
       if (!this.validate()) return
-      var newProject = {
+      let newProject = {
         title: this.title,
         tel: this.telNumber,
         amount: this.targetAmount,
         topic: this.currentTopic,
         description: this.descr,
         userid: localStorage.getItem('loggedUser')
-      }
+      };
       alert('Title:' + newProject.title) // shows that project has created
-      localStorage.setItem('currentProject', newProject)
+      // localStorage.setItem('currentProject', JSON.stringify(newProject))
+      let projectList = []
+      if (!localStorage.getItem('projects'))
+        projectList = []
+      else
+        projectList = JSON.parse(localStorage.getItem("projects"))
+      projectList.push(newProject)
+      localStorage.setItem("projects", JSON.stringify(projectList))
     }
   }
 }
