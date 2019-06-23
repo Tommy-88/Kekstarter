@@ -2,33 +2,37 @@
   <header>
     <v-toolbar-side-icon class="icon" @click="isShown = !isShown"></v-toolbar-side-icon>
     <navbar v-if="isShown"></navbar>
-    <div class="name" v-on:click="toHome">Kekstarter</div>
+    <div class="row justify-content-center">
+       <div class="col-8">
+    <div class="name" v-on:click="toHome">KekStarter</div>
+    </div>
+    </div>
   </header>
 </template>
 
 <script>
-  export default {
-    name: 'Header',
-    props: {
-    },
-    data () {
-      return {
-        authorized: false,
-        isShown: false
-      }
-    },
-    methods: {
-      toHome: function () {
-        this.$router.push('/')
-      }
+export default {
+  name: 'Header',
+  props: {
+  },
+  data () {
+    return {
+      authorized: false,
+      isShown: false
+    }
+  },
+  methods: {
+    toHome: function () {
+      this.$router.push('/')
     }
   }
+}
 </script>
 
 <style scoped>
   header {
-    background-color: darkcyan;
-    height: 80px;
+    background-color: rgba(187, 185, 185, 0.945);
+    height: 60px;
     margin: 0;
     padding: 0;
     position: relative;
@@ -40,15 +44,12 @@
   }
   .name {
     color: white;
-    float: left;
-    margin: 20px 80px;
-    vertical-align: center;
-    font-size: 28px;
-    font-family: cursive;
+    margin-top:0.6%;
+    font-size: 30px;
+    font-family: monospace;
     cursor: pointer;
     font-style: italic;
     display: inline-block;
-    width: 150px
   }
 
 </style>

@@ -24,8 +24,7 @@ export default {
     getAuthorized: function () {
       if (localStorage.getItem('loggedUser')) {
         this.authorized = JSON.parse(localStorage.getItem('loggedUser')).isLogged
-      }
-      else {
+      } else {
         this.authorized = false
       }
     }

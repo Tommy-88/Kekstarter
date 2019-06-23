@@ -43,8 +43,7 @@ export default {
         const parsed = JSON.stringify(loggedUser)
         localStorage.setItem('loggedUser', parsed)
         this.$router.push({name: 'allFees', params: {userid: login}})
-      }
-      else {
+      } else {
         alert('Error')
       }
     }

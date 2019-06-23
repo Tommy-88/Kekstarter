@@ -1,7 +1,7 @@
 <template>
   <main>
     <form v-on:submit="addNew">
-      <button id="add"></button>
+      <button id="add">Добавить</button>
       <input v-model="message" placeholder="message">
       <input v-model="needed" type="number" placeholder="How much to collect?">
     </form>
@@ -52,8 +52,7 @@ export default {
     if (localStorage.getItem('items')) {
       this.items = JSON.parse(localStorage.getItem('items'))
       this.id = this.items.length
-    }
-    else {
+    } else {
       this.id = 0
     }
     this.user = JSON.parse(localStorage.getItem('loggedUser')).userid
@@ -70,14 +69,7 @@ export default {
   ul {
     list-style-type: none;
   }
-  li {
-    width: 70%;
-    padding: 0 10px;
-    border: solid blue 3px;
-    border-radius: 20px;
-    margin: 10px 10px;
-    margin-left: -30px;
-  }
+
   form {
     width: 100%;
     border-bottom: solid darkcyan 2px;
@@ -85,15 +77,22 @@ export default {
     margin: 10px 0;
   }
   #add {
-    background-image: url("../assets/images/add.png");
-    margin-left: 25px;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    max-width: 15%;
+    background-color: rgb(187, 199, 199);
+    margin-top:0.6%;
+    margin-left: 0.5%;
+    margin-right: 2%;
+    height: 30px;
+    width: 8%;
+    min-width:80px;
+    border-radius:10%;
+    max-width: 14%;
     cursor: pointer;
+    border:0.5px solid gray;
+    border-bottom: 2px solid gray;
+    border-top:1px solid gray;
+  }
+  #add.hover{
+    background-color: aquamarine;
   }
   input {
     height: auto;
