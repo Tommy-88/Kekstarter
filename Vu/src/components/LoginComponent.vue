@@ -1,13 +1,20 @@
 <template>
   <main>
     <form>
+      <div class="container-fluid">
       <v-layout align-center column fill-height>
+      <div class="row justify-content-center">
+      <div class="col-md-7 col-sm-7 col-lg-8 text-center">
         <h2>Вход</h2>
+      </div>
+        <div class="col-md-7 col-sm-7 col-lg-8 text-center">
         <v-text-field
           v-model="login"
           label="Login"
           required
         ></v-text-field>
+        </div>
+        <div class="col-md-7 col-sm-7 col-lg-8 text-center">
         <v-text-field
           v-model="password"
           label="Password"
@@ -16,8 +23,13 @@
           @input="$v.password.$touch()"
           @blur="$v.password.$touch()"
         ></v-text-field>
+        </div>
+        <div class="col-md-7 col-sm-7 col-lg-8 text-center">
         <v-btn v-on:click="authUser(login, password)" color="blue" dark>Login</v-btn>
+        </div>
+      </div>
       </v-layout>
+      </div>
     </form>
   </main>
 </template>
