@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import AllFeesComponent from '@/components/AllFeesComponent'
-// import CircleProgress from 'vue2-circle-progress'
+import CircleProgress from 'vue2-circle-progress'
 import Fee from '@/components/Fee'
 import NavBar from '@/components/NavBar'
 import Home from '@/components/HomeComponent'

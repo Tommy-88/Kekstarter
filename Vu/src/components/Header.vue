@@ -11,28 +11,28 @@
 </template>
 
 <script>
-export default {
-  name: 'Header',
-  props: {
-  },
-  data () {
-    return {
-      authorized: false,
-      isShown: false
-    }
-  },
-  methods: {
-    toHome: function () {
-      this.$router.push('/')
+  export default {
+    name: 'Header',
+    props: {
+    },
+    data () {
+      return {
+        authorized: false,
+        isShown: false
+      }
+    },
+    methods: {
+      toHome: function () {
+        this.$router.push('/')
+      }
     }
   }
-}
 </script>
 
 <style scoped>
   header {
-    background-color: rgba(187, 185, 185, 0.945);
-    height: 60px;
+    background-color: darkcyan;
+    height: 80px;
     margin: 0;
     padding: 0;
     position: relative;
