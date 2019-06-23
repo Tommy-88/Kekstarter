@@ -25,6 +25,7 @@
             v-model="currentTopic"
             :items="topics"
             label="Select topic"
+            return-object="true"
           ></v-select>
         </v-flex>
         <v-flex xs6>
@@ -67,8 +68,8 @@ export default {
       // eslint-disable-next-line no-mixed-operators
       v => v.length < 20 && !isNaN(+v) || 'Number must be valid'
     ],
-    topics: ['Science', 'IT', 'Entertainment', 'Other'],
-    currentTopic: '',
+    topics: [{id: 1, text: 'Science'}, {id: 2, text: 'IT'}, {id: 3, text: 'Entertainment'}, {id: 9, text: 'Other'}],
+    currentTopic: {id: Number, text: String},
     descr: ''
   }),
   methods: {
@@ -82,7 +83,7 @@ export default {
         title: this.title,
         tel: this.telNumber,
         amount: this.targetAmount,
-        topic: this.currentTopic,
+        topicId: this.currentTopic.id,
         description: this.descr,
         userid: localStorage.getItem('loggedUser')
       };
