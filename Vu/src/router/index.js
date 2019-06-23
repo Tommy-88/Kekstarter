@@ -10,6 +10,7 @@ import Header from '@/components/Header'
 import Registration from '@/components/Registration'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import CreateProjectComponent from "@/components/CreateProjectComponent";
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 Vue.component('navbar', NavBar)
@@ -46,6 +47,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Registration
+    },
+    {
+      path: '/user/:userid/create',
+      name: 'creating',
+      component: CreateProjectComponent
     }
   ]
 }
