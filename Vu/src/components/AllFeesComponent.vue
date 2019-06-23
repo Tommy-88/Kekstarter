@@ -1,9 +1,17 @@
 <template>
   <main>
     <form v-on:submit="addNew">
+      <div class="row justify-content">
+      <div class="col-md-3 col-sm-2 col-lg-2 text-left">
       <button id="add">Добавить</button>
+      </div>
+      <div class="col-md-3 col-sm-2 col-lg-4 text-left">
       <input v-model="message" placeholder="message">
+      </div>
+      <div class="col-md-3 col-sm-2 col-lg-4 text-left">
       <input v-model="needed" type="number" placeholder="How much to collect?">
+      </div>
+      </div>
     </form>
     <v-list>
       <v-subheader>Мои сборы</v-subheader>
@@ -83,7 +91,7 @@ export default {
     margin-right: 2%;
     height: 30px;
     width: 8%;
-    min-width:80px;
+    min-width:70px;
     border-radius:10%;
     max-width: 14%;
     cursor: pointer;
