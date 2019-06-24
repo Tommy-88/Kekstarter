@@ -8,6 +8,7 @@ import Home from '@/components/HomeComponent'
 import Login from '@/components/LoginComponent'
 import Header from '@/components/Header'
 import Registration from '@/components/Registration'
+import Search from '@/components/Search'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import CreateProjectComponent from "@/components/CreateProjectComponent";
@@ -16,6 +17,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
 Vue.component('app-header', Header)
+Vue.component('search', Search)
 Vue.use(Vuetify, {
   iconfont: 'md'
 })

@@ -3,6 +3,8 @@
     <v-toolbar-side-icon class="icon" @click="isShown = !isShown"></v-toolbar-side-icon>
     <navbar v-if="isShown"></navbar>
     <div class="name" v-on:click="toHome">Kekstarter</div>
+    <v-icon large class="search_icon" @click="isSearch = !isSearch">search</v-icon>
+    <search v-if="isSearch"></search>
   </header>
 </template>
 
@@ -14,7 +16,8 @@
     data () {
       return {
         authorized: false,
-        isShown: false
+        isShown: false,
+        isSearch: false
       }
     },
     methods: {
@@ -37,6 +40,10 @@
   }
   .icon {
     float: left;
+  }
+  .search_icon{
+    float: right;
+    margin: 10px;
   }
   .name {
     color: white;
