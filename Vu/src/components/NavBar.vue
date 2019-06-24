@@ -86,9 +86,10 @@ export default {
   },
   methods: {
     logout: function () {
+      this.$router.push('/')
       localStorage.clear()
       document.location.reload()
-      setTimeout(this.$router.push('/'), 1000)
+      // setTimeout(this.$router.push('/'), 1000)
     },
     moveTo: function (item) {
       if (item.title === 'Выход') {
