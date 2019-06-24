@@ -1,6 +1,6 @@
 <template>
   <main>
-    <form class="createPage">
+    <v-form class="createPage" ref="form" v-model="valid" lazy-validation>
         <v-flex xs6>
           <h2>Открытие нового сбора</h2>
           <v-text-field
@@ -13,6 +13,7 @@
         <v-flex xs6>
           <v-text-field
             v-model="targetAmount"
+            :rules="amountRules"
             type="number"
             label="Необходимая сумма"
             required
@@ -21,8 +22,11 @@
         <v-flex xs6>
           <v-select
             v-model="currentTopic"
+            :rules="topicRules"
+            return-object="true"
             :items="topics"
             label="Тема"
+            required
           ></v-select>
         </v-flex>
         <v-flex xs6>
@@ -42,10 +46,11 @@
         </v-flex>
         <v-flex xs6>
           <v-btn color="blue"
-            v-on:click="createNewProject()" dark
+            @click="createNewProject()" dark
+                 :disabled="!valid"
           >Открыть сбор</v-btn>
         </v-flex>
-    </form>
+    </v-form>
   </main>
 </template>
 
@@ -53,26 +58,36 @@
 export default {
   name: 'CreateProjectComponent',
   data: () => ({
+    valid: false,
     title: '',
     titleRules: [
-      v => !!v || 'Title is required',
-      v => v.length < 100 || 'Title should be shorter than 100 symbols'
+      v => !!v || 'Это поле обязательно',
+      v => v.length > 4 || 'Название должно быть длиннее 4 символов',
+      v => v.length < 100 || 'Название должно быть короче 100 символов'
     ],
     targetAmount: Number,
+    amountRules: [
+      v => v > 0 || 'Это поле обязательно'
+    ],
     telNumber: '',
     telNumRules: [
-      v => !!v || 'Number is required',
+      v => !!v || 'Это поле обязательно',
       // eslint-disable-next-line no-mixed-operators
-      v => v.length < 20 && !isNaN(+v) || 'Number must be valid'
+      v => v.length < 20 && !isNaN(+v) || 'Некорректный номер'
     ],
-    topics: ['Science', 'IT', 'Entertainment', 'Other'],
-    currentTopic: '',
+    topics: [{id: 1, text: 'Science'}, {id: 2, text: 'IT'}, {id: 3, text: 'Entertainment'}, {id: 9, text: 'Other'}],
+    currentTopic: {id: 0, text: ""},
+    topicRules: [
+      v => !(v.text === "") || 'Это поле обязательно'
+    ],
     descr: ''
   }),
   methods: {
-    validate: function () {
-      // for example
-      return this.title.length > 4 && this.title.length < 100
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+      }
+      return this.valid
     },
     createNewProject: function () {
       if (!this.validate()) return
@@ -80,7 +95,7 @@ export default {
         title: this.title,
         tel: this.telNumber,
         amount: this.targetAmount,
-        topic: this.currentTopic,
+        topicId: this.currentTopic.id,
         description: this.descr,
         author: JSON.parse(localStorage.getItem('loggedUser')).userid,
         id: localStorage.getItem('currentId') ? localStorage.getItem('currentId') : 1
