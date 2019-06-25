@@ -8,27 +8,48 @@
               Поддержать
             </v-btn>
           </template>
-          <v-card>
-            <v-card-title>
-              <span class="headline">Выбрать способ оплаты</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex xs12>
-                    <v-autocomplete
-                      :items="['Сбербанк', 'QIWI', 'Яндекс.Деньги', 'VK Pay']"
-                      label=""
-                    ></v-autocomplete>
-                  </v-flex>
-                </v-layout>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation>
+            <v-card>
+              <v-card-title>
+                <span class="headline">Выберите способ оплаты:</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container grid-list-md>
+                  <v-layout wrap>
+                    <v-flex xs12>
+                        <v-select
+                          v-model="select"
+                          :items="['Сбербанк', 'QIWI', 'Яндекс.Деньги', 'VK Pay']"
+                          :rules="[v => !!v || 'Необходимо выбрать способ оплаты']"
+                          label="Способ оплаты"
+                          required
+                        ></v-select>
+                        </v-flex>
+                  </v-layout>
+                
+                  <v-layout wrap>
+                      <v-flex xs12>
+                          <v-text-field
+                            v-model="amount"
+                            :rules="[v => !!v || 'Необходиммо ввести сумму']"
+                            label="Сумма"
+                            required
+                            type="number"
+                          ></v-text-field>
+                      </v-flex>
+                  </v-layout>
               </v-container>
             </v-card-text>
             <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat v-on:click="dialog = false">Закрыть</v-btn>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" flat @click="validateAndPay">Перейти на страницу оплаты</v-btn>
+                <v-btn color="blue darken-1" flat v-on:click="dialog = false">Закрыть</v-btn>
             </v-card-actions>
-          </v-card>
+            </v-card>
+          </v-form>
         </v-dialog>
 </template>
 
@@ -37,8 +58,35 @@ export default {
   name: 'DonateForm',
   data: function(){
      return {
-      dialog: false
-     } 
+      dialog: false,
+      valid: true,
+      amount: '',
+      select: ''
+     }
+     
+  },
+  methods: {
+    validateAndPay () {
+        if (this.$refs.form.validate()) {
+          this.snackbar = true
+        }
+        let userid = this.$route.params.userid;
+        let feeid = this.$route.params.id;
+        let amount = this.amount;
+        let selectedPayment = this.select;
+
+        let postObject = {
+          userid,
+          feeid,
+          amount,
+          selectedPayment
+        }
+        alert('Чекай консоль')
+        console.log(postObject)
+
+
+
+    }
   }
 }
 </script>
