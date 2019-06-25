@@ -10,6 +10,7 @@
         <v-text-field
         v-model="login"
         label='Login'
+        type="login"
         required
         @input="$v.login.$touch()"
         @blur="$v.login.$touch()"
@@ -18,7 +19,8 @@
         <div class="col-md-7 col-sm-7 col-lg-8 text-center">
         <v-text-field
           v-model="email"
-          label="E-mail"
+          label="email"
+          type="email"
           required
         ></v-text-field>
         </div>
@@ -26,11 +28,12 @@
         <v-text-field
           v-model="password"
           label="Password"
+          type="password"
           required
           ></v-text-field>
         </div>
         <div class="col-md-7 col-sm-7 col-lg-8 text-center">
-        <v-btn>Регистрация</v-btn>
+         <v-btn type="submit" color="blue" dark>Регистрация</v-btn>
         </div>
         </div>
       </v-layout>
