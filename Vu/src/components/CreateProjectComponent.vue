@@ -1,5 +1,6 @@
 <template>
   <main>
+    <v-form class="createPage" ref="form" v-model="valid" lazy-validation>
     <form class="createPage">
       <div class="container">
         <div class="row justify-content-center">
@@ -57,6 +58,7 @@
         </div>
       </div>
     </form>
+    </v-form>
   </main>
 </template>
 

@@ -3,7 +3,7 @@
     <v-toolbar-side-icon class="icon" @click="isShown = !isShown"></v-toolbar-side-icon>
     <navbar v-if="isShown"></navbar>
     <div class="row justify-content-center">
-       <div class="col-8">
+       <div class="col-md-8 col-sm-12 col-lg-9">
     <div class="name" v-on:click="toHome">KekStarter</div>
     </div>
     </div>
@@ -32,11 +32,8 @@ export default {
 <style scoped>
   header {
     background-color: darkcyan;
-    height: 80px;
-    margin: 0;
-    padding: 0;
+    height: 58px;
     position: relative;
-    margin-bottom: 20px;
     padding-right: 40px;
   }
   .icon {
@@ -51,13 +48,16 @@ export default {
     font-style: italic;
     display: inline-block;
   }
+  .name1{
+    height: 10px;
+    width: 10px;
+  }
   @media screen and (max-width: 800px) {
     header {
-      height: 60px;
+      height: 55px;
     }
     .name {
-      margin: 10px 40px;
-      font-size: 22px;
+      font-size: 30px;
     }
   }
 
