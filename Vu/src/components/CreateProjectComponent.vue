@@ -88,6 +88,8 @@ export default {
       var newProject = {
         title: this.title,
         tel: this.telNumber,
+        createDate: Date.now(),
+        currentAmount: 0,
         amount: this.targetAmount,
         topicId: this.currentTopic.id,
         description: this.descr,

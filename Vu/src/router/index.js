@@ -12,6 +12,7 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import CreateProjectComponent from "@/components/CreateProjectComponent";
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import FeesViewForm from "../components/FeesViewForm";
 
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
