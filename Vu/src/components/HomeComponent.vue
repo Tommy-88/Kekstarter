@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import FeesViewForm from "./FeesViewForm";
+import FeesViewForm from './FeesViewForm'
 export default {
   name: 'HomeComponent',
   components: {FeesViewForm}

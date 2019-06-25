@@ -24,11 +24,9 @@
 </template>
 
 <script>
-  import FeeListView from "./FeeListView";
-
   export default {
     name: "FeesViewForm",
-    components: {FeeListView},
+    //components: {FeeListView},
     data() {
       return {
         projects: []
