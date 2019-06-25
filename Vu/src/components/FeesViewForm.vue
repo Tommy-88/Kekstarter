@@ -39,7 +39,6 @@
 
   export default {
     name: "FeesViewForm",
-    components: {FeeListView},
     data() {
       return {
         projects: [],
