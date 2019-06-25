@@ -4,7 +4,7 @@
         <v-flex title align-self-start>
             <v-layout column>
               <v-flex>
-                Название
+              Название
               </v-flex>
               <v-flex>
                 <v-chip color="blue-grey lighten-4" small class="pl-auto">
@@ -29,7 +29,7 @@
       <v-layout>
         <v-card>
           <v-card-text>
-            <p class="text-lg-left">
+            <p class="text-left">
               "Описание проекта.Описание проекта.Описание проекта."
           </p>
           </v-card-text>
