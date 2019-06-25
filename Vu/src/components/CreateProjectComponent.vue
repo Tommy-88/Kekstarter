@@ -90,10 +90,12 @@ export default {
       return this.valid
     },
     createNewProject: function () {
-      if (!this.validate()) return
+      if (!this.$refs.form.validate()) return
       var newProject = {
         title: this.title,
         tel: this.telNumber,
+        createDate: Date.now(),
+        currentAmount: 0,
         amount: this.targetAmount,
         topicId: this.currentTopic.id,
         description: this.descr,

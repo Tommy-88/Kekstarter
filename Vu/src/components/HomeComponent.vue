@@ -1,14 +1,17 @@
 <template>
     <main>
       <div class="about">
-        <h2>About us</h2>
+        <h2>20 последних проектов</h2>
+        <FeesViewForm></FeesViewForm>
       </div>
     </main>
 </template>
 
 <script>
+import FeesViewForm from "./FeesViewForm";
 export default {
-  name: 'HomeComponent'
+  name: 'HomeComponent',
+  components: {FeesViewForm}
 }
 </script>
 
