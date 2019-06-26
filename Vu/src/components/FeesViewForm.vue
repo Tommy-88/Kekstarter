@@ -18,8 +18,8 @@
             </v-flex>
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Дата создания:</div>
-              <div>{{new Date(+proj.date).toLocaleString()}}</div>
-              <div class="caption grey--text">{{formatDate(new Date(+proj.date))}}</div>
+              <div>{{formatDate(new Date(proj.date))}}</div>
+              <div class="caption grey--text">{{getDateDiff(new Date(proj.date)) || ''}}</div>
             </v-flex>
             <v-flex xs2 sm4 md2>
               <v-btn color="yellow accent-2" v-on="on">
@@ -41,34 +41,38 @@
     name: "FeesViewForm",
     data() {
       return {
-        formatDate: function formatDate(date) {
-          const diff = new Date() - date;
-          if (diff < 1000)
-            return 'только что';
-          const sec = Math.floor(diff / 1000);
-          if (sec < 60)
-            return sec + ' сек. назад';
-          const min = Math.floor(diff / 60000);
-          if (min < 60)
-            return min + ' мин. назад';
-          let d = date;
-          d = [
-            '0' + d.getDate(),
-            '0' + (d.getMonth() + 1),
-            '' + d.getFullYear(),
-            '0' + d.getHours(),
-            '0' + d.getMinutes()
-          ];
-          for (let i = 0; i < d.length; i++)
-            d[i] = d[i].slice(-2);
-          return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
-        }
+
       }
     },
     methods: {
       toFee: function (item) {
         this.$store.dispatch('getActiveProj', item)
         this.$router.push({name: 'fee', params: {userid: item.id_user.name, id: item.id}})
+      },
+      formatDate: function (date) {
+        let d = date;
+        d = [
+          '0' + d.getDate(),
+          '0' + (d.getMonth() + 1),
+          '' + d.getFullYear(),
+          '0' + d.getHours(),
+          '0' + d.getMinutes()
+        ];
+        for (let i = 0; i < d.length; i++)
+          d[i] = d[i].slice(-2);
+        return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+      },
+      getDateDiff (date) {
+        const diff = new Date() - date;
+        if (diff < 1000)
+          return 'только что';
+        const sec = Math.floor(diff / 1000);
+        if (sec < 60)
+          return sec + ' сек. назад';
+        const min = Math.floor(diff / 60000);
+        if (min < 60)
+          return min + ' мин. назад';
+        return null;
       }
     },
     computed: {

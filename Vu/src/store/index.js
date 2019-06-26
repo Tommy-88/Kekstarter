@@ -37,7 +37,7 @@ export default new Vuex.Store({
   },
   actions: {
     addProj({commit}, proj) {
-      axios.post('http://127.0.0.1:8000/api/v1/project/create', {
+      axios.post('http://95.179.136.92/api/v1/project/create', {
         name: proj.name,
         id_user: 2,
         targetAmount: proj.targetAmount,
@@ -54,7 +54,7 @@ export default new Vuex.Store({
       })
     },
     getProjs ({commit}, projs) {
-     axios.get('http://127.0.0.1:8000/api/v1/show/projects').then(
+     axios.get('http://95.179.136.92/api/v1/show/projects').then(
        r=>r.data).then(projects => {
          commit('SET_PROJ', projects)
      }).catch( e =>{
@@ -62,7 +62,7 @@ export default new Vuex.Store({
      })
     },
     async getActiveProj ({commit}, proj) {
-      await axios.post('http://127.0.0.1:8000/api/v1/show/project', {
+      await axios.post('http://95.179.136.92/api/v1/show/project', {
         id: proj.id
       }).then (r=>r.data).then( project => {
         commit('SET_ACTIVE_PROJ', project)
@@ -77,7 +77,7 @@ export default new Vuex.Store({
           'Content-Type':'application/json', 'Authorization': 'e3248dd1bb493a5257b015b328feab70'
         }
       }
-      axios.patch('http://127.0.0.1:8000/api/v1/project/status', {
+      axios.patch('http://95.179.136.92/api/v1/project/status', {
           id: proj.id
         },
         config
