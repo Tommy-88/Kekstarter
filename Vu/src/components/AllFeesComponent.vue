@@ -14,7 +14,7 @@
             <div class="feeTitle">{{proj.name}}</div>
             <div class="feeTopic">
               <p class="caption grey--text">Тема:</p>
-              <p class="caption black--text">{{topics[proj.topic]}}</p></div>
+              <p class="caption black--text">{{topics[proj.topic-1]}}</p></div>
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">Прогресс: {{proj.currentAmount}}/{{proj.targetAmount}}</div>
@@ -86,12 +86,15 @@
         }
       },
       start: function (item) {
-
+        if (confirm ('Действительно возобновить сбор средств?')) {
+          this.$store.dispatch('closeProject', item)
+          document.location.reload()
+        }
       }
     },
     computed: {
       items() {
-        return this.$store.getters.projects
+        return this.$store.getters.projectsByUser(3)
       }
     }
   }

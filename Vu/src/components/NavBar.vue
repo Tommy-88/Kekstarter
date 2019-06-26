@@ -29,7 +29,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-divider></v-divider>
-        <div v-if="this.authorized">
+        <div v-if="this.isAuthorized">
         <v-list-tile
           v-for="item in logged"
           :key="item.title"
@@ -62,7 +62,6 @@ export default {
   },
   data () {
     return {
-      authorized: Boolean,
       drawer: true,
       items: [
         { title: 'Главная', icon: 'home', name: 'home', show: true },
@@ -82,13 +81,21 @@ export default {
   computed: {
     isShown: function (item) {
       return item.show
+    },
+    isAuthorized () {
+      return this.$store.getters.isAuthenticated
+    },
+    username () {
+      return this.$store.getters.user
     }
   },
   methods: {
     logout: function () {
-      this.$router.push('/')
+      alert(localStorage.getItem('user-token'))
+     this.$store.dispatch('deauthUser', localStorage.getItem('user-token'))
       localStorage.clear()
       document.location.reload()
+      this.$router.push('/')
     },
     moveTo: function (item) {
       if (item.title === 'Выход') {
@@ -100,22 +107,8 @@ export default {
       else if (item.title === 'Главная')
         this.$router.push('/')
       else
-        this.$router.push({name: item.name, params: {userid: JSON.parse(localStorage.getItem('loggedUser')).userid}})
-    },
-    getAuthorized: function () {
-      if (localStorage.getItem('loggedUser')) {
-        this.authorized = JSON.parse(localStorage.getItem('loggedUser')).isLogged
-      }
-      else {
-        this.authorized = false
-      }
+        this.$router.push({name: item.name, params: {userid: localStorage.getItem('user')}})
     }
-  },
-  mounted () {
-    this.$router.afterEach((to, from, next) => {
-      this.getAuthorized()
-    })
-    this.getAuthorized()
   }
 }
 </script>

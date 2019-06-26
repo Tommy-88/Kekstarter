@@ -75,7 +75,7 @@ export default {
       // eslint-disable-next-line no-mixed-operators
       v => v.length < 20 && !isNaN(+v) || 'Некорректный номер'
     ],
-    topics: [{id: 1, text: 'Science'}, {id: 2, text: 'IT'}, {id: 3, text: 'Entertainment'}, {id: 9, text: 'Other'}],
+    topics: [{id: 1, text: 'Science'}, {id: 2, text: 'IT'}, {id: 3, text: 'Entertainment'}, {id: 4, text: 'Other'}],
     currentTopic: {id: 0, text: ""},
     topicRules: [
       v => !(v.text === "") || 'Это поле обязательно'

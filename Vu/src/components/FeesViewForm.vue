@@ -10,7 +10,7 @@
               <div class="feeTitle">{{proj.name}}</div>
               <div class="feeTopic">
                 <p class="caption grey--text">Тема:</p>
-                <p class="caption black--text">{{proj.topic}}</p></div>
+                <p class="caption black--text">{{topics[proj.topic-1]}}</p></div>
             </v-flex>
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Автор:</div>
@@ -18,7 +18,7 @@
             </v-flex>
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Дата создания:</div>
-              <div>{{new Date(+proj.date).toLocaleString()}}</div>
+              <div>{{proj.date}}</div>
               <div class="caption grey--text">{{formatDate(new Date(+proj.date))}}</div>
             </v-flex>
             <v-flex xs2 sm4 md2>
@@ -62,7 +62,8 @@
           for (let i = 0; i < d.length; i++)
             d[i] = d[i].slice(-2);
           return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
-        }
+        },
+        topics: ['Science', 'IT','Entertainment','Other']
       }
     },
     methods: {
@@ -73,7 +74,7 @@
     },
     computed: {
       projects() {
-        return this.$store.getters.projects
+        return this.$store.getters.activeProjects
       }
     }
   }

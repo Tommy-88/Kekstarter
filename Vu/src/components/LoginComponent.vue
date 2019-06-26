@@ -38,15 +38,9 @@ export default {
       this.$refs.form.resetValidation()
     },
     authUser: function (login, password) {
-      if (login === 'admin' && password === 'admin') {
-        var loggedUser = {userid: login, isLogged: true}
-        const parsed = JSON.stringify(loggedUser)
-        localStorage.setItem('loggedUser', parsed)
-        this.$router.push({name: 'allFees', params: {userid: login}})
-      }
-      else {
-        alert('Invalid login or password')
-      }
+     this.$store.dispatch('setUser', { login, password })
+      this.$router.push('/')
+      document.location.reload()
     }
   }
 }

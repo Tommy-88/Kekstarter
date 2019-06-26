@@ -32,6 +32,9 @@ export default {
   },
   mounted() {
     this.$store.dispatch('getProjs')
+  },
+  destroyed() {
+
   }
 }
 </script>

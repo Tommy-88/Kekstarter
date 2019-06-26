@@ -1,7 +1,7 @@
 <template>
     <main>
       <div class="about">
-        <h2>Недавно созданные проекты</h2>
+        <h2>{{this.$store.getters.token}}</h2>
         <FeesViewForm></FeesViewForm>
       </div>
     </main>
