@@ -77,7 +77,8 @@ export default new Vuex.Store({
     },
     USER_ERROR(state) {
       state.status = 'error'
-    }
+    },
+
   },
   actions: {
     async setUser({commit, dispatch}, user) {
@@ -89,7 +90,7 @@ export default new Vuex.Store({
           const token = response.data[0].token
           localStorage.setItem('user-token', token)
           localStorage.setItem('user', response.data[0].id_user)
-          axios.defaults.headers.common['Authorization'] = token
+          //axios.defaults.headers.common['Authorization'] = token
           commit('AUTH_SUCCESS', user)
           dispatch('USER_REQUEST')
         }).catch( e => {
@@ -98,16 +99,16 @@ export default new Vuex.Store({
         })
     },
     deauthUser ({commit, dispatch}, token) {
-      return new Promise((resolve, reject) => {
-        axios.post('http://95.179.136.92/api/v1/user/deauthorization').then(response => {
-          commit('AUTH_LOGOUT')
+      alert('trying to deauth with token ' + token)
+        axios.post('http://95.179.136.92/api/v1/user/deauthorization', {},{
+          headers: {'Authorization' : token.toString()}
+        }).then(response => {
           alert('im here')
+          commit('AUTH_LOGOUT')
           localStorage.removeItem('user-token')
-          resolve()
         }).catch(e => {
           alert(e)
         })
-      })
     },
     addProj({commit}, proj) {
       axios.post('http://95.179.136.92/api/v1/project/create', {

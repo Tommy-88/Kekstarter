@@ -23,15 +23,30 @@
           type="password"
           required
           ></v-text-field>
-        <v-btn type="submit" color="blue" dark>Регистрация</v-btn>
+        <v-btn type="submit" color="blue" dark v-on:click="registerUser">Регистрация</v-btn>
       </v-layout>
     </form>
   </main>
 </template>
 
 <script>
+  import axios from 'axios'
     export default {
-        name: "Registration"
+        name: "Registration",
+      methods: {
+          registerUser: function () {
+            axios.post('http://95.179.136.92/api/v1/user/create', {
+              email: this.email,
+              name: this.login,
+              password: this.password
+            }).then( response => {
+              alert('registered')
+              this.$router.push('auth')
+            }).catch( e => {
+              alert(e)
+            })
+          }
+      }
     }
 </script>
 

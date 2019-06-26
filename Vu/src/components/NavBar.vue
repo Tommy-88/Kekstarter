@@ -94,8 +94,8 @@ export default {
       alert(localStorage.getItem('user-token'))
      this.$store.dispatch('deauthUser', localStorage.getItem('user-token'))
       localStorage.clear()
-      document.location.reload()
       this.$router.push('/')
+      document.location.reload()
     },
     moveTo: function (item) {
       if (item.title === 'Выход') {
