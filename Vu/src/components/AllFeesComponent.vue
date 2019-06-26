@@ -6,25 +6,25 @@
       </v-btn>
       <div><h2>Открыть новый сбор</h2></div>
     </form>
-    <v-card dense flat class="feeCard" v-for="proj in items" :key="proj.title">
+    <v-card dense flat class="feeCard" v-for="proj in items" :key="proj.name">
       <v-form>
         <v-layout row wrap v-on:click="toFee(proj)">
           <v-flex xs12 md6>
             <!--            <div class="left caption grey&#45;&#45;text">Название:</div>-->
-            <div class="feeTitle">{{proj.title}}</div>
+            <div class="feeTitle">{{proj.name}}</div>
             <div class="feeTopic">
               <p class="caption grey--text">Тема:</p>
-              <p class="caption black--text">{{proj.topicId}}</p></div>
+              <p class="caption black--text">{{topics[proj.topic]}}</p></div>
           </v-flex>
           <v-flex xs6 sm4 md2>
-            <div class="caption grey--text">Прогресс: {{proj.currentAmount}}/{{proj.amount}}</div>
+            <div class="caption grey--text">Прогресс: {{proj.currentAmount}}/{{proj.targetAmount}}</div>
             <v-progress-linear
-              :value="proj.currentAmount / proj.amount * 100"
+              :value="proj.currentAmount / proj.targetAmount * 100"
             ></v-progress-linear>
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">Дата создания:</div>
-            <div>{{new Date(+proj.createDate).toLocaleString()}}</div>
+            <div>{{new Date(+proj.date).toLocaleString()}}</div>
             <!--            <div class="caption grey&#45;&#45;text">{{formatDate(new Date(+proj.createDate))}}</div>-->
           </v-flex>
           <v-flex xs2 sm4 md2>
@@ -32,15 +32,21 @@
               <v-toolbar-items>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <v-icon class="icons" v-on="on" v-on:click.stop="toEdit(proj)">edit</v-icon>
+                    <v-icon class="icons" v-on="on" v-on:click.stop="edit(proj)">edit</v-icon>
                   </template>
                   <span>Редактировать</span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <v-tooltip bottom v-if="proj.isActive">
                   <template v-slot:activator="{ on }">
-                    <v-icon class="icons" v-on="on" v-on:click.stop="toDelete(proj)">close</v-icon>
+                    <v-icon class="icons" v-on="on" v-on:click.stop="stop(proj)">pause</v-icon>
                   </template>
-                  <span>Завершить</span>
+                  <span>Приостановить</span>
+                </v-tooltip>
+                <v-tooltip bottom v-else>
+                  <template v-slot:activator="{ on }">
+                    <v-icon class="icons" v-on="on" v-on:click.stop="start(proj)">play_arrow</v-icon>
+                  </template>
+                  <span>Начать</span>
                 </v-tooltip>
               </v-toolbar-items>
             </v-toolbar>
@@ -56,9 +62,9 @@
     name: 'HelloWorld',
     data() {
       return {
-        items: [],
         user: String,
-        id: Number
+        id: Number,
+        topics: ['Science', 'IT','Entertainment','Other']
       }
     },
     methods: {
@@ -67,23 +73,26 @@
 
       },
       toFee: function (item) {
-        this.$router.push({name: 'fee', params: {userid: item.author, id: item.id}})
+        this.$store.dispatch('getActiveProj', item)
+        this.$router.push({name: 'fee', params: {userid: item.id_user.name, id: item.id}})
       },
-      toEdit: function (item) {
+      edit: function (item) {
         alert('You are going to edit ' + JSON.stringify(item))
       },
-      toDelete: function (item) {
-        alert('You are going to delete ' + JSON.stringify(item))
+      stop: function (item) {
+        if (confirm ('Действительно приостановить сбор средств?')) {
+          this.$store.dispatch('closeProject', item)
+          document.location.reload()
+        }
+      },
+      start: function (item) {
+
       }
     },
-    mounted() {
-      if (localStorage.getItem('projects')) {
-        this.items = JSON.parse(localStorage.getItem('projects'))
-        this.id = this.items.length
-      } else {
-        this.id = 0
+    computed: {
+      items() {
+        return this.$store.getters.projects
       }
-      this.user = JSON.parse(localStorage.getItem('loggedUser')).userid
     }
   }
 </script>

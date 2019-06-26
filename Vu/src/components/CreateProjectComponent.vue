@@ -86,26 +86,15 @@ export default {
     createNewProject: function () {
       if (!this.$refs.form.validate()) return
       var newProject = {
-        title: this.title,
-        tel: this.telNumber,
-        createDate: Date.now(),
+        name: this.title,
+        telNumber: this.telNumber,
         currentAmount: 0,
-        amount: this.targetAmount,
-        topicId: this.currentTopic.id,
+        targetAmount: this.targetAmount,
+        topic: this.currentTopic.id,
         description: this.descr,
-        author: JSON.parse(localStorage.getItem('loggedUser')).userid,
-        id: localStorage.getItem('currentId') ? localStorage.getItem('currentId') : 1
+        id_user: 2
       }
-      localStorage.setItem('currentId', newProject.id + 1)
-      let projectList = []
-      if (!localStorage.getItem('projects')) {
-        projectList = []
-      }
-      else {
-        projectList = JSON.parse(localStorage.getItem('projects'))
-      }
-      projectList.push(newProject)
-      localStorage.setItem('projects', JSON.stringify(projectList))
+      this.$store.dispatch('addProj', newProject)
       this.$router.push({name: 'allFees', params: {userid: this.$route.params.userid}})
     }
   }

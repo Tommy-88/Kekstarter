@@ -62,7 +62,7 @@ export default {
   },
   data () {
     return {
-      authorized: true,
+      authorized: Boolean,
       drawer: true,
       items: [
         { title: 'Главная', icon: 'home', name: 'home', show: true },
@@ -88,7 +88,6 @@ export default {
     logout: function () {
       this.$router.push('/')
       localStorage.clear()
-      this.$router.push('/')
       document.location.reload()
     },
     moveTo: function (item) {
