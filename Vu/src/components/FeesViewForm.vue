@@ -63,7 +63,7 @@
             d[i] = d[i].slice(-2);
           return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
         },
-        topics: ['Science', 'IT','Entertainment','Other']
+        topics: ['Наука', 'IT','Развлечения','Другое']
       }
     },
     methods: {

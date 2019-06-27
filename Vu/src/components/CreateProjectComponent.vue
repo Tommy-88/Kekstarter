@@ -2,7 +2,7 @@
   <main>
     <v-form class="createPage" ref="form" v-model="valid" lazy-validation>
         <v-flex xs6>
-          <h2>Открытие нового сбора</h2>
+          <h2>{{headText}}</h2>
           <v-text-field
             v-model="title"
             :rules="titleRules"
@@ -48,7 +48,7 @@
           <v-btn color="blue"
             @click="createNewProject()" dark
                  :disabled="!valid"
-          >Открыть сбор</v-btn>
+          >{{buttonText}}</v-btn>
         </v-flex>
     </v-form>
   </main>
@@ -75,12 +75,17 @@ export default {
       // eslint-disable-next-line no-mixed-operators
       v => v.length < 20 && !isNaN(+v) || 'Некорректный номер'
     ],
-    topics: [{id: 1, text: 'Science'}, {id: 2, text: 'IT'}, {id: 3, text: 'Entertainment'}, {id: 4, text: 'Other'}],
+    topics: [{id: 1, text: 'Наука'}, {id: 2, text: 'IT'}, {id: 3, text: 'Развлечения'}, {id: 4, text: 'Другое'}],
     currentTopic: {id: 0, text: ""},
     topicRules: [
       v => !(v.text === "") || 'Это поле обязательно'
     ],
-    descr: ''
+    descr: '',
+    buttonText: 'Открыть сбор',
+    headText: 'Открытие нового сбора',
+    justTopics: ['Наука', 'IT', 'Развлечения', 'Другое'],
+    id: Boolean,
+    isActive: Boolean
   }),
   methods: {
     createNewProject: function () {
@@ -92,10 +97,33 @@ export default {
         targetAmount: this.targetAmount,
         topic: this.currentTopic.id,
         description: this.descr,
-        id_user: 2
+        isActive: this.isActive,
+        id: this.id,
+        id_user: localStorage.getItem('user-id').toString(),
+        token: localStorage.getItem('user-token')
       }
-      this.$store.dispatch('addProj', newProject)
+      if (this.$route.name === 'create') {
+        this.$store.dispatch('addProj', newProject)
+      }
+      else {
+        this.$store.dispatch('updateProject', newProject)
+      }
       this.$router.push({name: 'allFees', params: {userid: this.$route.params.userid}})
+      document.location.reload()
+    }
+  },
+  mounted() {
+    if (this.$route.name === 'edit') {
+      this.buttonText = 'Сохранить изменения'
+      this.headText = 'Изменение информации о сборе'
+      const item = this.$store.getters.projectById(this.$route.params.id)
+      this.title = item.name
+      this.telNumber = item.telNumber
+      this.targetAmount = item.targetAmount
+      this.currentTopic = this.topics[item.topic - 1]
+      this.descr = item.description
+      this.isActive = item.isActive
+      this.id = item.id
     }
   }
 }

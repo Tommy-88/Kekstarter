@@ -64,7 +64,7 @@
       return {
         user: String,
         id: Number,
-        topics: ['Science', 'IT','Entertainment','Other']
+        topics: ['Наука', 'IT','Развлечения','Другое']
       }
     },
     methods: {
@@ -77,7 +77,7 @@
         this.$router.push({name: 'fee', params: {userid: item.id_user.name, id: item.id}})
       },
       edit: function (item) {
-        alert('You are going to edit ' + JSON.stringify(item))
+        this.$router.push({name: 'edit', params: {userid: item.id_user.name, id: item.id}})
       },
       stop: function (item) {
         if (confirm ('Действительно приостановить сбор средств?')) {
@@ -87,14 +87,15 @@
       },
       start: function (item) {
         if (confirm ('Действительно возобновить сбор средств?')) {
-          this.$store.dispatch('closeProject', item)
+          this.$store.dispatch('openProject', item)
           document.location.reload()
         }
       }
     },
     computed: {
       items() {
-        return this.$store.getters.projectsByUser(3)
+        const id = Number(localStorage.getItem('user-id'))
+        return this.$store.getters.projectsByUser(id)
       }
     }
   }

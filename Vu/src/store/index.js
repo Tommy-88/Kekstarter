@@ -30,6 +30,9 @@ export default new Vuex.Store({
       return state.projects.filter(project => project.isActive)
     },
     isAuthenticated: state => !!state.token,
+    projectById: state => id =>{
+      return state.projects.find(project => project.id === id)
+    },
     token(state) {
       return state.token
     }
@@ -48,7 +51,7 @@ export default new Vuex.Store({
       state.activeProject = proj
     },
     CLOSE_PROJECT(state, proj) {
-      state.projects[proj.id].isActive = !state.projects[proj.id].isActive
+      state.projects[proj.id].isActive = false
     },
     DEAUTH_USER(state) {
       state.activeUser = null
@@ -78,32 +81,36 @@ export default new Vuex.Store({
     USER_ERROR(state) {
       state.status = 'error'
     },
-
+    UPDATE_PROJ(state, proj) {
+      state.projects[proj.id] = proj
+    },
+    OPEN_PROJECT(state, proj) {
+      state.projects[proj.id].isActive = true
+    }
   },
   actions: {
     async setUser({commit, dispatch}, user) {
         commit('AUTH_REQUEST')
-         await axios.post('http://95.179.136.92/api/v1/user/authorization', {
+         const response = await axios.post('http://95.179.136.92/api/v1/user/authorization', {
           email: user.login,
           password: user.password
-        }).then(response => {
-          const token = response.data[0].token
-          localStorage.setItem('user-token', token)
-          localStorage.setItem('user', response.data[0].id_user)
-          //axios.defaults.headers.common['Authorization'] = token
-          commit('AUTH_SUCCESS', user)
-          dispatch('USER_REQUEST')
         }).catch( e => {
           commit('AUTH_ERROR', e)
+           alert(e)
           localStorage.removeItem('user-token')
         })
+      const token = response.data[0].token
+      localStorage.setItem('user-token', token)
+      localStorage.setItem('user', response.data[0].id_user.name)
+      localStorage.setItem('user-id', response.data[0].id_user.id)
+      //axios.defaults.headers.common['Authorization'] = token
+      commit('AUTH_SUCCESS', user)
+      dispatch('USER_REQUEST')
     },
     deauthUser ({commit, dispatch}, token) {
-      alert('trying to deauth with token ' + token)
         axios.post('http://95.179.136.92/api/v1/user/deauthorization', {},{
           headers: {'Authorization' : token.toString()}
         }).then(response => {
-          alert('im here')
           commit('AUTH_LOGOUT')
           localStorage.removeItem('user-token')
         }).catch(e => {
@@ -113,13 +120,13 @@ export default new Vuex.Store({
     addProj({commit}, proj) {
       axios.post('http://95.179.136.92/api/v1/project/create', {
         name: proj.name,
-        id_user: 2,
+        id_user: Number(localStorage.getItem('user-id')),
         targetAmount: proj.targetAmount,
         currentAmount: proj.currentAmount,
         description: proj.description,
         topic: proj.topic,
         telNumber: proj.telNumber
-      }, {headers: {'Content-Type':'application/json', 'Authorization': 'e3248dd1bb493a5257b015b328feab70'}}).then( resp => {
+      }, {headers: {'Content-Type':'application/json', 'Authorization': proj.token.toString()}}).then( resp => {
           commit('ADD_PROJ', proj)
         }
       ).catch(e => {
@@ -147,15 +154,55 @@ export default new Vuex.Store({
     closeProject ({commit}, proj) {
       const config = {
         headers: {
-          'Content-Type':'application/json', 'Authorization': 'e3248dd1bb493a5257b015b328feab70'
+          'Content-Type':'application/json', 'Authorization': localStorage.getItem('user-token').toString()
         }
       }
       axios.patch('http://95.179.136.92/api/v1/project/status', {
-          id: proj.id
+          id: proj.id,
+        isActive: false
         },
         config
       ).then(resp => {
+        alert('starting')
         commit('CLOSE_PROJECT', proj)
+        alert('finished')
+      }).catch(e => {
+        alert(e)
+      })
+    },
+    openProject ({commit}, proj) {
+      const config = {
+        headers: {
+          'Content-Type':'application/json', 'Authorization': localStorage.getItem('user-token').toString()
+        }
+      }
+      axios.patch('http://95.179.136.92/api/v1/project/status', {
+          id: proj.id,
+        isActive: true
+        },
+        config
+      ).then(resp => {
+        commit('OPEN_PROJECT', proj)
+      }).catch(e => {
+        alert(e)
+      })
+    },
+    updateProject({commit}, proj) {
+      const config ={
+        headers: {
+          'Content-Type':'application/json', 'Authorization': localStorage.getItem('user-token').toString()
+        }
+      }
+      axios.patch('http://95.179.136.92/api/v1/user/changeproject', {
+        id: proj.id,
+        telNumber: proj.telNumber,
+        topic: proj.topic,
+        description: proj.description,
+        targetAmount: proj.targetAmount,
+        name: proj.name,
+        isActive: proj.isActive
+      }, config).then(response => {
+        commit('UPDATE_PROJ', proj)
       }).catch(e => {
         alert(e)
       })

@@ -13,8 +13,7 @@
     },
     data () {
       return {
-        authorized: false,
-        isShown: false
+        isShown: true
       }
     },
     methods: {

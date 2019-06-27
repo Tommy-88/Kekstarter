@@ -91,7 +91,6 @@ export default {
   },
   methods: {
     logout: function () {
-      alert(localStorage.getItem('user-token'))
      this.$store.dispatch('deauthUser', localStorage.getItem('user-token'))
       localStorage.clear()
       this.$router.push('/')

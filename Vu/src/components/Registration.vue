@@ -40,7 +40,6 @@
               name: this.login,
               password: this.password
             }).then( response => {
-              alert('registered')
               this.$router.push('auth')
             }).catch( e => {
               alert(e)

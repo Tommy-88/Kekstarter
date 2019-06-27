@@ -1,7 +1,7 @@
 <template>
     <main>
       <div class="about">
-        <h2>{{this.$store.getters.token}}</h2>
+        <h2>Недавно открыте сборы</h2>
         <FeesViewForm></FeesViewForm>
       </div>
     </main>

@@ -22,6 +22,22 @@ Vue.use(Vuetify, {
 })
 Vue.use(Router)
 
+const ifNotAuthenticated = (to, from, next) => {
+  if (!this.$store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (this.$store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/auth')
+}
+
 export default new Router({
   routes: [
     {
@@ -52,6 +68,11 @@ export default new Router({
     {
       path: '/user/:userid/create',
       name: 'create',
+      component: CreateProjectComponent
+    },
+    {
+      path: '/user/:userid/fee/:id/edit',
+      name: 'edit',
       component: CreateProjectComponent
     }
   ]
