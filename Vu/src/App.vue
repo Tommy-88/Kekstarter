@@ -6,7 +6,7 @@
         <router-view></router-view>
       </v-container>
     </v-content>
-    <v-footer dark></v-footer>
+    <app-footer></app-footer>
   </v-app>
 </template>
 

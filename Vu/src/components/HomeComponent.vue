@@ -1,7 +1,7 @@
 <template>
     <main>
       <div class="about">
-        <h2>Недавно созданные проекты</h2>
+        <h2 id="first">Недавно созданные проекты</h2>
         <FeesViewForm></FeesViewForm>
       </div>
     </main>
@@ -16,6 +16,7 @@ export default {
 </script>
 
 <style scoped>
+
 #first{
 margin-top:1%;
 }

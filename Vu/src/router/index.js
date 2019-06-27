@@ -13,10 +13,12 @@ import 'vuetify/dist/vuetify.min.css'
 import CreateProjectComponent from '@/components/CreateProjectComponent'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import FeesViewForm from '@/components/FeesViewForm'
+import Footer from '@/components/Footer'
 
 Vue.component('navbar', NavBar)
 Vue.component('home', Home)
 Vue.component('app-header', Header)
+Vue.component('app-footer', Footer)
 Vue.use(Vuetify, {
     iconfont: 'md'
 })
