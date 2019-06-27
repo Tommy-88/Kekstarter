@@ -18,14 +18,11 @@
             </v-flex>
             <v-flex xs6 sm4 md2>
               <div class="caption grey--text">Дата создания:</div>
-              <div>{{proj.date}}</div>
-              <div class="caption grey--text">{{formatDate(new Date(+proj.date))}}</div>
+              <div>{{formatDate(new Date(proj.date))}}</div>
+              <div class="caption grey--text"></div>
             </v-flex>
             <v-flex xs2 sm4 md2>
-              <v-btn color="yellow accent-2" v-on="on">
-                <v-icon left dark>payment</v-icon>
-                Поддержать
-              </v-btn>
+              <DonateForm :activeProjectId="proj.id"></DonateForm>
             </v-flex>
           </v-layout>
           <v-divider></v-divider>
@@ -37,8 +34,10 @@
 
 <script>
 
+  import DonateForm from "./DonateForm";
   export default {
     name: "FeesViewForm",
+    components: {DonateForm},
     data() {
       return {
         formatDate: function formatDate(date) {
@@ -70,7 +69,9 @@
       toFee: function (item) {
         this.$store.dispatch('getActiveProj', item)
         this.$router.push({name: 'fee', params: {userid: item.id_user.name, id: item.id}})
-      }
+      },
+
+
     },
     computed: {
       projects() {

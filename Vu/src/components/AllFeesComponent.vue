@@ -24,7 +24,7 @@
           </v-flex>
           <v-flex xs6 sm4 md2>
             <div class="caption grey--text">Дата создания:</div>
-            <div>{{new Date(+proj.date).toLocaleString()}}</div>
+            <div>{{formatDate(new Date(proj.date))}}</div>
             <!--            <div class="caption grey&#45;&#45;text">{{formatDate(new Date(+proj.createDate))}}</div>-->
           </v-flex>
           <v-flex xs2 sm4 md2>
@@ -90,6 +90,19 @@
           this.$store.dispatch('openProject', item)
           document.location.reload()
         }
+      },
+      formatDate: function (date) {
+        let d = date;
+        d = [
+          '0' + d.getDate(),
+          '0' + (d.getMonth() + 1),
+          '' + d.getFullYear(),
+          '0' + d.getHours(),
+          '0' + d.getMinutes()
+        ];
+        for (let i = 0; i < d.length; i++)
+          d[i] = d[i].slice(-2);
+        return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
       }
     },
     computed: {
