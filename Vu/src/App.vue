@@ -28,6 +28,9 @@ export default {
         this.authorized = false
       }
     }
+  },
+  mounted() {
+    this.$store.dispatch('getProjs')
   }
 }
 </script>

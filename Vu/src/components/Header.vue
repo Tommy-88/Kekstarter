@@ -41,8 +41,8 @@ export default {
   }
   .name {
     color: white;
-    margin-top:0.5%;
-    font-size: 36px;
+    margin-top:0.6%;
+    font-size: 32px;
     font-family: monospace;
     cursor: pointer;
     display: inline-block;
@@ -56,19 +56,10 @@ export default {
       height: 55px;
     }
     .name {
-      font-size: 32px;
+      font-size: 30px;
     }
   }
 .row:before, .row:after,.row {
 display: flex !important;
 }
-.row {
-    &:before {
-        content: none;
-    }
-
-    &:after {
-        content: '';
-    }
-} 
 </style>

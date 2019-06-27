@@ -4,7 +4,7 @@
         <v-flex title align-self-start>
             <v-layout column>
               <v-flex>
-              Название
+                {{item.name}}
               </v-flex>
               <v-flex>
                 <v-chip color="blue-grey lighten-4" small class="pl-auto">
@@ -20,23 +20,23 @@
       </v-layout>
       <v-layout align-center>
         <v-flex grow pa-1>
-        <v-progress-linear color="green lighten-2" v-model="valueDeterminate" class="mr-2"></v-progress-linear>
+        <v-progress-linear color="green lighten-2" v-model="item.currentAmount/item.targetAmount*100" class="mr-2"></v-progress-linear>
 
         </v-flex >
-        <v-flex shrink pa-1> 40/100</v-flex>
+        <v-flex shrink pa-1> {{item.currentAmount}}/{{item.targetAmount}}</v-flex>
       </v-layout>
 
       <v-layout>
         <v-card>
           <v-card-text>
-            <p class="text-left">
-              "Описание проекта.Описание проекта.Описание проекта."
+            <p class="text-lg-left">
+              {{item.description}}
           </p>
           </v-card-text>
         </v-card>
       </v-layout>
       <v-layout row justify-center>
-        <DonateForm></DonateForm>
+        <DonateForm v-if="item.isActive"></DonateForm>
       </v-layout>
     </v-container>
 </template>
@@ -46,7 +46,6 @@ export default {
   name: 'ItemComponent',
   data () {
     return {
-      item: JSON,
       valueDeterminate: 40
     }
   },
@@ -56,6 +55,9 @@ export default {
   computed: {
     progressRate: function () {
       return this.collected / this.needed * 100
+    },
+    item() {
+      return this.$store.getters.activeProject
     }
   },
   methods: {
@@ -67,6 +69,7 @@ export default {
       this.$router.push({name: 'fee'})
     }
   }
+
 }
 </script>
 

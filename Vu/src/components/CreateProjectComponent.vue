@@ -91,21 +91,14 @@ export default {
     descr: ''
   }),
   methods: {
-    validate () {
-      if (this.$refs.form.validate()) {
-        this.snackbar = true
-      }
-      return this.valid
-    },
     createNewProject: function () {
       if (!this.$refs.form.validate()) return
       var newProject = {
-        title: this.title,
-        tel: this.telNumber,
-        createDate: Date.now(),
+        name: this.title,
+        telNumber: this.telNumber,
         currentAmount: 0,
-        amount: this.targetAmount,
-        topicId: this.currentTopic.id,
+        targetAmount: this.targetAmount,
+        topic: this.currentTopic.id,
         description: this.descr,
         author: JSON.parse(localStorage.getItem('loggedUser')).userid,
         id: localStorage.getItem('currentId') ? localStorage.getItem('currentId') : 1
@@ -116,9 +109,9 @@ export default {
         projectList = []
       } else {
         projectList = JSON.parse(localStorage.getItem('projects'))
+        id_user: 2
       }
-      projectList.push(newProject)
-      localStorage.setItem('projects', JSON.stringify(projectList))
+      this.$store.dispatch('addProj', newProject)
       this.$router.push({name: 'allFees', params: {userid: this.$route.params.userid}})
     }
   }
